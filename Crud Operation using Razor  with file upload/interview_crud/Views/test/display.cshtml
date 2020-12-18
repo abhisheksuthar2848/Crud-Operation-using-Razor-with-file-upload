@@ -1,0 +1,104 @@
+﻿@model IEnumerable<interview_crud.EDM.tblemployee>
+
+@{
+    ViewBag.Title = "display";
+}
+@using interview_crud.EDM;
+@{
+    var dc = new db_mvc2Entities();
+ }
+
+<h2>display</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.emp_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emp_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emp_address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emp_mob)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emp_dob)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emp_hob)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emp_gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emp_profile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emp_status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.country_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.state_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.city_id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.emp_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emp_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emp_address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emp_mob)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emp_dob)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emp_hob)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emp_gender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emp_profile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emp_status)
+        </td>
+        <td>
+            @dc.tblCountries.Find(item.country_id).Country_name
+            
+        </td>
+        <td>           
+            @dc.tblStates.Find(item.state_id).State_name
+        </td>
+        <td>
+            @dc.tblCities.Find(item.city_id).City_name
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.emp_id}) |
+            @Html.ActionLink("Details", "Details", new {id=item.emp_id}) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.emp_id})
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db_mvc2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbladmin">
+    <Key>
+      <PropertyRef Name="admin_id" />
+    </Key>
+    <Property Name="admin_id" Type="int" Nullable="false" />
+    <Property Name="admin_email" Type="varchar" MaxLength="50" />
+    <Property Name="admin_password" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblCity">
+    <Key>
+      <PropertyRef Name="City_id" />
+    </Key>
+    <Property Name="City_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="City_name" Type="varchar" MaxLength="50" />
+    <Property Name="State_id" Type="int" />
+  </EntityType>
+  <EntityType Name="tblCountry">
+    <Key>
+      <PropertyRef Name="Country_id" />
+    </Key>
+    <Property Name="Country_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Country_name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblemployee">
+    <Key>
+      <PropertyRef Name="emp_id" />
+    </Key>
+    <Property Name="emp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="emp_name" Type="varchar" MaxLength="50" />
+    <Property Name="emp_address" Type="varchar" MaxLength="50" />
+    <Property Name="emp_mob" Type="varchar" MaxLength="50" />
+    <Property Name="emp_dob" Type="date" />
+    <Property Name="emp_hob" Type="varchar" MaxLength="50" />
+    <Property Name="emp_gender" Type="varchar" MaxLength="50" />
+    <Property Name="emp_profile" Type="varchar" MaxLength="50" />
+    <Property Name="emp_status" Type="varchar" MaxLength="50" />
+    <Property Name="country_id" Type="int" />
+    <Property Name="state_id" Type="int" />
+    <Property Name="city_id" Type="int" />
+  </EntityType>
+  <EntityType Name="tblState">
+    <Key>
+      <PropertyRef Name="State_id" />
+    </Key>
+    <Property Name="State_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="State_name" Type="varchar" MaxLength="50" />
+    <Property Name="Country_id" Type="int" />
+  </EntityType>
+  <Association Name="FK_tblCity_tblState">
+    <End Role="tblState" Type="Self.tblState" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblCity" Type="Self.tblCity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblState">
+        <PropertyRef Name="State_id" />
+      </Principal>
+      <Dependent Role="tblCity">
+        <PropertyRef Name="State_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblemployee_tblCountry">
+    <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblemployee" Type="Self.tblemployee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCountry">
+        <PropertyRef Name="Country_id" />
+      </Principal>
+      <Dependent Role="tblemployee">
+        <PropertyRef Name="country_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblState_tblCountry">
+    <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblState" Type="Self.tblState" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCountry">
+        <PropertyRef Name="Country_id" />
+      </Principal>
+      <Dependent Role="tblState">
+        <PropertyRef Name="Country_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="db_mvc2ModelStoreContainer">
+    <EntitySet Name="tbladmin" EntityType="Self.tbladmin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblCity" EntityType="Self.tblCity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblCountry" EntityType="Self.tblCountry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblemployee" EntityType="Self.tblemployee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblState" EntityType="Self.tblState" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tblCity_tblState" Association="Self.FK_tblCity_tblState">
+      <End Role="tblState" EntitySet="tblState" />
+      <End Role="tblCity" EntitySet="tblCity" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblemployee_tblCountry" Association="Self.FK_tblemployee_tblCountry">
+      <End Role="tblCountry" EntitySet="tblCountry" />
+      <End Role="tblemployee" EntitySet="tblemployee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblState_tblCountry" Association="Self.FK_tblState_tblCountry">
+      <End Role="tblCountry" EntitySet="tblCountry" />
+      <End Role="tblState" EntitySet="tblState" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
